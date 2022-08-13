@@ -1,4 +1,4 @@
-*Cron Job Master*
+# Cron Job Master
 This CLI tool helps you setup cron jobs quickly and easily. It utilizes a script to be placed in the `scripts` folder within the root repository (where the `main.py` file is placed). It can also publish debugging logs to a `logs` folder withing the root repository of the project.
 
 To use, simply run `python main.py`
@@ -18,4 +18,4 @@ The following updates are planned:
 5. Multiple-user support.
 6. Other OS support.
 
-I've explained my progress with the code and its steps [here](https://solarsigma.notion.site/Making-of-Python-Program-49f4e10cf65d4b6b843e98aed1075122)
+I've explained my progress with the code and its steps [here](https://solarsigma.notion.site/Making-of-Python-Program-49f4e10cf65d4b6b843e98aed1075122).
