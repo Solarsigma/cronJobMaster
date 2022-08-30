@@ -14,6 +14,9 @@ MENU = [
 
 
 def get_yn_inp(prompt):
+	"""
+	Returns a boolean value after prompting the user to enter either Yes or No
+	"""
 	while True:
 		inp = input(prompt)
 		if inp in ['y', 'Y', 'Yes', 'yes', 'YES', 'True', 'true', 'TRUE']:
@@ -25,6 +28,9 @@ def get_yn_inp(prompt):
 
 
 def get_sanitized_input(prompt, type_=None, min_=None, max_=None, exception=None):
+	"""
+	Gets an  input from the user after showing them prompt. Type of input, minimum, maximum and exceptions are sanitized against.
+	"""
 	if min_ is not None and max_ is not None and max_ < min_:
 		raise ValueError("min_ must be less than or equal to max_")
 	while True:
@@ -47,6 +53,9 @@ def get_sanitized_input(prompt, type_=None, min_=None, max_=None, exception=None
 
 
 def get_basic_time():
+	"""
+	Prompts and takes in user input of time slices. Returns a string-formatted timeslice.
+	"""
 	print("Enter integers for the following fields:")
 	minute = get_sanitized_input(prompt="Minute (0-59): ", type_=int, min_=0, max_=59, exception="*")
 	hour = get_sanitized_input(prompt="Hour (0-23): ", type_=int, min_=0, max_=23, exception="*")
@@ -56,10 +65,16 @@ def get_basic_time():
 	return " ".join([minute, hour, dom, mon, dow])
 
 def get_advanced_time():
+	"""
+	Returns a simple user-inputted string-formatted timeslice.
+	"""
 	time = get_sanitized_input(prompt="Enter the time string: ", type_=str)
 	return time
 
 def timeMenu(choice):
+	"""
+	Displays the time Menu and returns the entered time.
+	"""
 	if choice not in [1,2]:
 		raise ValueError("The choice can only be 1 or 2")
 	while True:
@@ -75,6 +90,9 @@ def timeMenu(choice):
 
 
 def mainMenu(cron):
+	"""
+	Displays the Main Menu (according to the MENU string array) and calls the mainMenuActioner which takes action based on choice entered.
+	"""
 	print("Select what you want to do: \n")
 	for i, option in enumerate(MENU):
 		print(f"{i+1}. {MENU[i]}")
@@ -84,6 +102,9 @@ def mainMenu(cron):
 
 
 def mainMenuActioner(choice, cron):
+	"""
+	Depending on the choice entered, calls different actions
+	"""
 	if choice == 1:
 		setupJob(cron)
 	elif choice == 2:
@@ -108,6 +129,9 @@ def mainMenuActioner(choice, cron):
 
 
 def setupJob(cron):
+	"""
+	Enables setting up a cron job. Allows user to enter script to execute, the time slice and the writes the job into cron
+	"""
 
 	while True:
 		execFile = os.path.join("./scripts/", input("Enter script file name: "))
@@ -143,6 +167,9 @@ Choice: """, type_=int, min_=1, max_=2)
 
 
 def listJobs(cron, showDisabled=False):
+	"""
+	Lists all the current cron jobs. If showDisabled is true, shows even the disabled jobs.
+	"""
 	print("Jobs existing in current enabled user crontab are: ")
 	for i,job in enumerate(cron):
 		if job.enabled or showDisabled:
@@ -153,6 +180,9 @@ def listJobs(cron, showDisabled=False):
 
 
 def editJob(cron):
+	"""
+	Allows editing the job. Provides a choice to edit timeslice, command or comment. And edits according to user input.
+	"""
 	listJobs(cron, showDisabled=True)
 	print(f"Which Cron Job would you like to edit?")
 	choice = get_sanitized_input(prompt="Choice: ", type_=int, min_=1, max_=len(cron))
@@ -200,6 +230,9 @@ Choice: """, type_=int, min_=1, max_=2)
 
 
 def toggleJob(cron, enableBool):
+	"""
+	Toggles job between enable and disable. Shows list of cron jobs and asks which to enable/disable
+	"""
 	listJobs(cron, showDisabled=enableBool)
 	print(f"Which Cron Job would you like to {'enable' if enableBool else 'disable'}?")
 	choice = get_sanitized_input(prompt="Choice: ", type_=int, min_=1, max_=len(cron))
@@ -208,6 +241,9 @@ def toggleJob(cron, enableBool):
 
 
 def deleteJob(cron):
+	"""
+	Lists all jobs and deletes a cron job according to user preference
+	"""
 	listJobs(cron, showDisabled=True)
 	print(f"Which Cron Job would you like to delete?")
 	choice = get_sanitized_input(prompt="Choice: ", type_=int, min_=1, max_=len(cron))
@@ -216,6 +252,9 @@ def deleteJob(cron):
 
 
 def showMain():
+	"""
+	Prompts user if they want to see the main menu after all actions of cronJobMaster have been completed.
+	"""
 	mainBool = get_yn_inp(prompt="\nThank you for using Cron Job Master.\nDo you want to go back to the Main Menu? [Y/n]\n")
 	print("\n")
 	return mainBool
