@@ -12,7 +12,7 @@ class CronWrapper:
 		Lists all the current cron jobs. If showDisabled is true, shows even the disabled jobs.
 		"""
 		if showDisabled is None:
-			showDisabled = input_util.get_yn_inp(prompt="Do you want to see disabled jobs as well? [Y/n]\n")
+			showDisabled = input_util.get_yn_inp(prompt="Do you want to see disabled jobs as well?")
 			print("\n")
 		print("Jobs existing in current enabled user crontab are: ")
 		for i,job in enumerate(self.cron):
@@ -74,12 +74,12 @@ class CronWrapper:
 			job.setall(scheduleTime)
 		elif choice == 2:
 			newCommand = input_util.get_sanitized_input(prompt="\nEnter new command:\n", type_=str)
-			while not input_util.get_yn_inp(prompt=f"\n\n\nYour command to be entered is:\n{newCommand}\n\nAre you sure? [Y/n]: "):
+			while not input_util.get_yn_inp(prompt=f"\n\n\nYour command to be entered is:\n{newCommand}\n\nAre you sure?"):
 				newCommand = input_util.get_sanitized_input(prompt="\nEnter new command:\n", type_=str)
 			job.command = newCommand
 		elif choice == 3:
 			newComment = input_util.get_sanitized_input(prompt="\nEnter new comment:\n", type_=str)
-			while not input_util.get_yn_inp(prompt=f"\n\n\nYour comment to be entered is:\n{newComment}\n\nAre you sure? [Y/n]: "):
+			while not input_util.get_yn_inp(prompt=f"\n\n\nYour comment to be entered is:\n{newComment}\n\nAre you sure?"):
 				newComment = input_util.get_sanitized_input(prompt="\nEnter new comment:\n", type_=str)
 			job.comment = newComment
 

@@ -3,7 +3,7 @@ def get_yn_inp(prompt):
 	Returns a boolean value after prompting the user to enter either Yes or No
 	"""
 	while True:
-		inp = input(prompt)
+		inp = input(prompt+" [Y/n]\n")
 		if inp in ['y', 'Y', 'Yes', 'yes', 'YES', 'True', 'true', 'TRUE']:
 			return True
 		if inp in ['n', 'N', 'No', 'no', 'NO', 'False', 'false', 'FALSE']:
