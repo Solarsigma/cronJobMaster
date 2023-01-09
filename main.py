@@ -47,17 +47,7 @@ def setupJob(cronWrapper):
 	Enables setting up a cron job. Allows user to enter script to execute, the time slice and the writes the job into cron
 	"""
 
-	while True:
-		execFile = os.path.join("./scripts/", input("Enter script file name: "))
-		if os.path.exists(execFile):
-			break
-		print("File does not exist. Please try again.")
-		print("List of files in 'scripts' folder:")
-		for file in os.listdir("./scripts/"):
-			if os.path.isfile(os.path.join("./scripts", file)):
-				print("\t", file)
-	os.chmod(execFile, 0o775)
-
+	execFile = file_util.getScriptFile()
 	scheduleTime = time_util.getTimeStr()
 	commandScript = f"/bin/sh {os.path.abspath(execFile)}"
 	comment = f"Running {execFile}"
